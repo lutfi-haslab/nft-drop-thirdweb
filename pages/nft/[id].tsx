@@ -14,15 +14,12 @@ import toast, { Toaster } from "react-hot-toast";
 
 const linkImg = "https://links.papareact.com/";
 
-interface Props {
-  collection: Collection;
-}
 
-const NFTDropPage = ({ collection }: Props) => {
+const NFTDropPage = ({ collection }) => {
   const [claimedSupply, setClaimedSupply] = useState<number>(0);
-  const [totalSupply, setTotalSupply] = useState<BigNumber>();
+  const [totalSupply, setTotalSupply] = useState();
   const [loading, setLoading] = useState<boolean>(true);
-  const [priceInEth, setPriceInEth] = useState<string>();
+  const [priceInEth, setPriceInEth] = useState<string>("");
   const nftDrop = useNFTDrop(collection.address);
 
   // Auth Metamask
@@ -138,7 +135,7 @@ const NFTDropPage = ({ collection }: Props) => {
             <h1 className="w-52 cursor-pointer text-xl font-extralight sm:w-80">
               The{" "}
               <span className="font-extrabold underline decoration-pink-600">
-                Haslab
+                PrifaLab
               </span>{" "}
               NFT Market Place
             </h1>
@@ -208,7 +205,7 @@ const NFTDropPage = ({ collection }: Props) => {
 
 export default NFTDropPage;
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+export const getServerSideProps = async ({ params }) => {
   const query = `*[_type == "collection" && slug.current == $id][0]{
     _id,
     title,
