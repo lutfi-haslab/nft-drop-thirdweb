@@ -14,12 +14,15 @@ import toast, { Toaster } from "react-hot-toast";
 
 const linkImg = "https://links.papareact.com/";
 
+interface Props {
+  collection: Collection;
+}
 
-const NFTDropPage = ({ collection }) => {
+const NFTDropPage = ({ collection }: Props) => {
   const [claimedSupply, setClaimedSupply] = useState<number>(0);
-  const [totalSupply, setTotalSupply] = useState();
+  const [totalSupply, setTotalSupply] = useState<BigNumber>();
   const [loading, setLoading] = useState<boolean>(true);
-  const [priceInEth, setPriceInEth] = useState<string>("");
+  const [priceInEth, setPriceInEth] = useState<string>();
   const nftDrop = useNFTDrop(collection.address);
 
   // Auth Metamask
@@ -205,7 +208,7 @@ const NFTDropPage = ({ collection }) => {
 
 export default NFTDropPage;
 
-export const getServerSideProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const query = `*[_type == "collection" && slug.current == $id][0]{
     _id,
     title,
